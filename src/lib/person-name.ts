@@ -1,5 +1,5 @@
 // src/lib/person-name.ts
-import { sanitizeName } from './sanitize';
+import { cleanName } from './sanitize';
 
 export const NAME_STORAGE_KEY = 'date.name';
 
@@ -12,11 +12,13 @@ export interface ResolvedName {
 }
 
 export function resolvePersonName(rawUrlName: string | null, stored: string | null): ResolvedName {
-  if (rawUrlName && rawUrlName.trim()) {
-    return { name: sanitizeName(rawUrlName), source: 'url', sneaky: false };
+  if (rawUrlName) {
+    const name = cleanName(rawUrlName);
+    if (name) return { name, source: 'url', sneaky: false };
   }
-  if (stored && stored.trim()) {
-    return { name: sanitizeName(stored), source: 'storage', sneaky: true };
+  if (stored) {
+    const name = cleanName(stored);
+    if (name) return { name, source: 'storage', sneaky: true };
   }
   return { name: 'Toi', source: 'fallback', sneaky: false };
 }

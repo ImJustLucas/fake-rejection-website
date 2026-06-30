@@ -17,4 +17,10 @@ describe('resolvePersonName', () => {
   it('returns the "Toi" fallback when nothing is available', () => {
     expect(resolvePersonName(null, null)).toEqual({ name: 'Toi', source: 'fallback', sneaky: false });
   });
+  it('falls through to storage when the URL name sanitizes to empty', () => {
+    expect(resolvePersonName('```', 'Camille')).toEqual({ name: 'Camille', source: 'storage', sneaky: true });
+  });
+  it('falls back to "Toi" when both url and storage sanitize to empty', () => {
+    expect(resolvePersonName('```', '   ')).toEqual({ name: 'Toi', source: 'fallback', sneaky: false });
+  });
 });

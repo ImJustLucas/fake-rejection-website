@@ -7,8 +7,12 @@ export function sanitizeText(raw: string, max = 100): string {
   return truncated.replace(/@/g, '@​');
 }
 
+/** Sanitize a name WITHOUT the "Toi" fallback — returns '' if nothing usable remains. */
+export function cleanName(raw: string): string {
+  return sanitizeText(raw, 40);
+}
+
 /** Sanitize a display/name string; fall back to "Toi" if nothing usable remains. */
 export function sanitizeName(raw: string): string {
-  const cleaned = sanitizeText(raw, 40);
-  return cleaned || 'Toi';
+  return cleanName(raw) || 'Toi';
 }
