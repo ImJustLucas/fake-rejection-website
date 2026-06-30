@@ -27,5 +27,6 @@ describe('App happy path', () => {
     fireEvent.click(screen.getByRole('button', { name: /Envoyer/ }));
     expect(discord.notifyNote).toHaveBeenCalledWith('Camille', '@camille_insta');
     expect(screen.getByText(/C'est noté/)).toBeInTheDocument();
+    expect(confettiLib.firePinkConfetti).toHaveBeenCalledTimes(2);
   });
 });

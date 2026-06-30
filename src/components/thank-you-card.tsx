@@ -33,6 +33,7 @@ export function ThankYouCard({ name, onSend }: ThankYouCardProps) {
       <input
         className="w-full mt-4 rounded-xl px-3 py-2 outline-none"
         style={{ border: '2px solid #2b061e' }}
+        aria-label="Petit mot"
         placeholder="Laisse-moi un petit mot (ton insta 👀)"
         value={note}
         onChange={(e) => setNote(e.target.value)}

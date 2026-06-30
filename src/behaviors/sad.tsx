@@ -34,7 +34,7 @@ export default function Sad({ onYes }: BehaviorProps) {
   return (
     <>
       <div
-        aria-hidden
+        aria-hidden={true}
         className="fixed inset-0 pointer-events-none z-0 flex items-center justify-center text-6xl"
         style={{ background: `rgba(10, 5, 15, ${sadness * 0.6})`, transition: 'background .2s ease' }}
       >
