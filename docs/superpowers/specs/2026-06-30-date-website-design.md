@@ -41,6 +41,20 @@ couleurs qui claquent, mais police propre (Poppins) et rose chaleureux.
   `*.vercel.app`).
 - URL type à coller dans Hinge : `https://<projet>.vercel.app/?name=Camille`.
 
+## 3bis. Conventions de nommage
+
+- **Fichiers et dossiers** : `kebab-case`
+  (ex. `question-card.tsx`, `use-person-name.ts`, `behaviors/grow-shrink.ts`).
+- **Noms de composants React** : `PascalCase`
+  (ex. le fichier `question-card.tsx` exporte le composant `QuestionCard`).
+- Hooks : fichier `kebab-case` (`use-visitor-mode.ts`), identifiant `camelCase`
+  préfixé `use` (`useVisitorMode`).
+
+> Note : dans les tableaux §5/§7 ci-dessous, les libellés `App`, `QuestionCard`,
+> `usePersonName`, etc. désignent les **identifiants** (composants/hooks) ; les
+> **fichiers** correspondants sont en kebab-case (`app.tsx`, `question-card.tsx`,
+> `use-person-name.ts`…).
+
 ## 4. Architecture
 
 Une seule page pilotée par une **machine d'états** interne :
