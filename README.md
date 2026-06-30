@@ -142,3 +142,15 @@ Le **registre de comportements** rend le pool extensible : ajouter un nouveau ga
 À utiliser avec humour et bienveillance. Le but, c'est de faire sourire — pas de forcer qui que ce soit. Si quelqu'un veut vraiment dire non… bon, le bouton ne l'aidera pas, mais un petit message honnête fera toujours mieux le job. 😄
 
 Fait avec beaucoup de rose et un peu de mauvaise foi. 💕
+
+---
+
+## ❤️ Le vrai « non », lui, ne se discute pas
+
+Ce projet est une blague sur un bouton. Dans la vraie vie, **le consentement n'est jamais un jeu**. Un « non » est un « non » — complet, définitif, sans bouton qui rétrécit, sans négociation, sans insistance. L'absence de « oui » clair et enthousiaste est aussi un « non ».
+
+Nous condamnons **sans aucune réserve toute forme d'agression et de violence sexuelles**. Rien ne les excuse, jamais.
+
+Et à toute personne qui en a été victime : **ce n'est pas ta faute, tu es cru·e, et tu mérites tout le soutien du monde.** 💙
+
+> 🆘 **Besoin d'aide ou d'écoute (France)** : **3919** (Violences Femmes Info, anonyme et gratuit) · **17** en cas d'urgence · **CRIAVS** et associations locales pour un accompagnement. Tu n'es pas seul·e.
