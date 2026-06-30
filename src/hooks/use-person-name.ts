@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useEffect, useState } from 'react';
 import { resolvePersonName, NAME_STORAGE_KEY, type ResolvedName } from '../lib/person-name';
 
 function safeGet(key: string): string | null {
@@ -9,13 +9,15 @@ function safeSet(key: string, value: string): void {
 }
 
 export function usePersonName(): ResolvedName {
-  return useMemo(() => {
+  const [resolved] = useState<ResolvedName>(() => {
     const url = new URLSearchParams(window.location.search).get('name');
     const stored = safeGet(NAME_STORAGE_KEY);
-    const resolved = resolvePersonName(url, stored);
-    if (resolved.source === 'url') {
-      safeSet(NAME_STORAGE_KEY, resolved.name);
-    }
-    return resolved;
-  }, []);
+    return resolvePersonName(url, stored);
+  });
+
+  useEffect(() => {
+    if (resolved.source === 'url') safeSet(NAME_STORAGE_KEY, resolved.name);
+  }, [resolved]);
+
+  return resolved;
 }

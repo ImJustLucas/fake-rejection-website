@@ -1,4 +1,5 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
+import { StrictMode } from 'react';
 import { render } from '@testing-library/react';
 import { useVisitTracking } from './use-visit-tracking';
 import * as discord from '../lib/discord';
@@ -29,5 +30,14 @@ describe('useVisitTracking', () => {
   it('fires the sneaky webhook when sneaky is true', () => {
     render(<Harness name="Camille" sneaky={true} />);
     expect(discord.notifySneaky).toHaveBeenCalledWith('Camille');
+  });
+
+  it('fires exactly once under StrictMode', () => {
+    render(
+      <StrictMode>
+        <Harness name="Camille" sneaky={false} />
+      </StrictMode>,
+    );
+    expect(discord.notifyVisit).toHaveBeenCalledTimes(1);
   });
 });
