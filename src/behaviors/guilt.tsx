@@ -14,7 +14,6 @@ export default function Guilt({ onYes }: BehaviorProps) {
       <NoButton
         text={GUILT_TEXTS[i]}
         onMouseEnter={advance}
-        onClick={advance}
         onTouchStart={(e) => {
           e.preventDefault();
           advance();
