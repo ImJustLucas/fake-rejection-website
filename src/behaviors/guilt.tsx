@@ -9,7 +9,7 @@ export default function Guilt({ onYes }: BehaviorProps) {
   const advance = () => setI((v) => nextGuiltIndex(v));
 
   return (
-    <div className="flex items-center justify-center gap-3 mt-6">
+    <div className="flex items-center justify-between gap-3 mt-6">
       <YesButton onClick={onYes} />
       <NoButton
         text={GUILT_TEXTS[i]}

@@ -32,7 +32,7 @@ export default function Gravity({ onYes }: BehaviorProps) {
   };
 
   return (
-    <div className="flex items-center justify-center gap-3 mt-6">
+    <div className="flex items-center justify-between gap-3 mt-6">
       <YesButton onClick={onYes} />
       <NoButton
         ref={ref}

@@ -40,7 +40,7 @@ export default function Sad({ onYes }: BehaviorProps) {
       >
         <span style={{ opacity: sadness }}>😢💧😭</span>
       </div>
-      <div className="flex items-center justify-center gap-3 mt-6 relative z-10">
+      <div className="flex items-center justify-between gap-3 mt-6 relative z-10">
         <YesButton ref={yesRef} onClick={onYes} />
         <NoButton ref={noRef} />
       </div>
