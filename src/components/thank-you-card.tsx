@@ -17,17 +17,17 @@ export function ThankYouCard({ name, onSend }: ThankYouCardProps) {
 
   if (sent) {
     return (
-      <div className="meme-card max-w-sm w-full mx-auto relative z-10">
-        <div className="text-4xl">✨</div>
-        <h1 className="text-2xl font-extrabold text-[#2b061e] mt-2">C'est noté, à très vite&nbsp;!</h1>
+      <div className="meme-card max-w-sm md:max-w-lg md:p-10 w-full mx-auto relative z-10">
+        <div className="text-4xl md:text-6xl">✨</div>
+        <h1 className="text-2xl md:text-4xl font-extrabold text-[#2b061e] mt-2">C'est noté, à très vite&nbsp;!</h1>
       </div>
     );
   }
 
   return (
-    <div className="meme-card max-w-sm w-full mx-auto relative z-10">
-      <div className="text-4xl">🥳</div>
-      <h1 className="text-2xl font-extrabold text-[#2b061e] mt-2 leading-tight">
+    <div className="meme-card max-w-sm md:max-w-lg md:p-10 w-full mx-auto relative z-10">
+      <div className="text-4xl md:text-6xl">🥳</div>
+      <h1 className="text-2xl md:text-4xl font-extrabold text-[#2b061e] mt-2 leading-tight">
         Yesss {name}, tu viens de faire ma journée&nbsp;!
       </h1>
       <input

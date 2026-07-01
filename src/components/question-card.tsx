@@ -12,9 +12,9 @@ interface QuestionCardProps {
 export function QuestionCard({ name, mode, isTouch, onYes }: QuestionCardProps) {
   const Behavior = BEHAVIORS[mode].Component;
   return (
-    <div className="meme-card max-w-sm w-full mx-auto relative z-10">
-      <div className="text-4xl">💖</div>
-      <h1 className="text-2xl font-extrabold text-[#2b061e] mt-2 leading-tight">
+    <div className="meme-card max-w-sm md:max-w-lg md:p-10 w-full mx-auto relative z-10">
+      <div className="text-4xl md:text-6xl">💖</div>
+      <h1 className="text-2xl md:text-4xl font-extrabold text-[#2b061e] mt-2 leading-tight">
         {name}, veux-tu venir en date avec moi&nbsp;?
       </h1>
       <Behavior onYes={onYes} isTouch={isTouch} />
