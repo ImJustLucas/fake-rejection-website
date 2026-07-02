@@ -4,8 +4,8 @@ import { render } from '@testing-library/react';
 import { useVisitTracking } from './use-visit-tracking';
 import * as discord from '../lib/discord';
 
-function Harness({ name, sneaky, id }: { name: string; sneaky: boolean; id?: string }) {
-  useVisitTracking(name, sneaky, id);
+function Harness({ name, sneaky, id, ready }: { name: string; sneaky: boolean; id?: string; ready?: boolean }) {
+  useVisitTracking(name, sneaky, id, ready);
   return null;
 }
 
@@ -44,5 +44,12 @@ describe('useVisitTracking', () => {
       </StrictMode>,
     );
     expect(discord.notifyVisit).toHaveBeenCalledTimes(1);
+  });
+
+  it('does not fire until ready becomes true', () => {
+    const { rerender } = render(<Harness name="Lou" sneaky={false} ready={false} />);
+    expect(discord.notifyVisit).not.toHaveBeenCalled();
+    rerender(<Harness name="Lou" sneaky={false} ready={true} />);
+    expect(discord.notifyVisit).toHaveBeenCalledWith('Lou', undefined);
   });
 });

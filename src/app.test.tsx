@@ -4,7 +4,7 @@ import App from './app';
 import * as discord from './lib/discord';
 import * as confettiLib from './lib/confetti';
 
-describe('App happy path', () => {
+describe('App happy path (name link)', () => {
   beforeEach(() => {
     localStorage.clear();
     window.history.replaceState({}, '', '/?name=Camille&mode=grow');
@@ -20,12 +20,12 @@ describe('App happy path', () => {
     expect(screen.getByText(/Camille, veux-tu venir en date/)).toBeInTheDocument();
 
     fireEvent.click(screen.getByRole('button', { name: /Oui/ }));
-    expect(discord.notifyAccepted).toHaveBeenCalledWith('Camille');
+    expect(discord.notifyAccepted).toHaveBeenCalledWith('Camille', undefined);
     expect(confettiLib.firePinkConfetti).toHaveBeenCalled();
 
     fireEvent.change(screen.getByPlaceholderText(/petit mot/), { target: { value: '@camille_insta' } });
     fireEvent.click(screen.getByRole('button', { name: /Envoyer/ }));
-    expect(discord.notifyNote).toHaveBeenCalledWith('Camille', '@camille_insta');
+    expect(discord.notifyNote).toHaveBeenCalledWith('Camille', '@camille_insta', undefined);
     expect(screen.getByText(/C'est noté/)).toBeInTheDocument();
     expect(confettiLib.firePinkConfetti).toHaveBeenCalledTimes(2);
   });

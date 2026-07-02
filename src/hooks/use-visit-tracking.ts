@@ -18,12 +18,12 @@ function parseReturns(raw: string | null): number[] {
   }
 }
 
-/** Fires the arrival webhooks exactly once on mount. */
-export function useVisitTracking(name: string, sneaky: boolean, id?: string): void {
+export function useVisitTracking(name: string, sneaky: boolean, id?: string, ready = true): void {
   const fired = useRef(false);
   const args = useRef({ name, sneaky, id });
+  args.current = { name, sneaky, id };
   useEffect(() => {
-    if (fired.current) return; // refs persist across StrictMode's simulated remount → fires once
+    if (!ready || fired.current) return;
     fired.current = true;
 
     const { name, sneaky, id } = args.current;
@@ -38,5 +38,5 @@ export function useVisitTracking(name: string, sneaky: boolean, id?: string): vo
     else if (decision.event === 'return') notifyReturn(name, id);
 
     if (sneaky) notifySneaky(name, id);
-  }, []);
+  }, [ready]);
 }
