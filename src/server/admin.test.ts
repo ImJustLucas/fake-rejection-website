@@ -22,4 +22,10 @@ describe('isAuthorized', () => {
     vi.stubEnv('ADMIN_SECRET', '');
     expect(isAuthorized('anything')).toBe(false);
   });
+  it('normalizes an array header to its first element', () => {
+    expect(isAuthorized(['s3cret'])).toBe(true);
+  });
+  it('rejects an empty array header', () => {
+    expect(isAuthorized([])).toBe(false);
+  });
 });

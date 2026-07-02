@@ -5,7 +5,7 @@ import { isValidId } from '../src/server/ids';
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   if (req.method !== 'POST') return res.status(405).json({ error: 'method' });
-  if (!isAuthorized(req.headers['x-admin-secret'] as string | undefined)) return res.status(401).json({ error: 'unauthorized' });
+  if (!isAuthorized(req.headers['x-admin-secret'])) return res.status(401).json({ error: 'unauthorized' });
   const id = typeof (req.body as { id?: unknown })?.id === 'string' ? (req.body as { id: string }).id : '';
   if (!isValidId(id)) return res.status(400).json({ error: 'id' });
   await deleteEntry(id);
