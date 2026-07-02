@@ -44,4 +44,12 @@ describe('useTarget', () => {
     render(<Harness />);
     await waitFor(() => expect(screen.getByTestId('s').textContent).toBe('Toi||random||false'));
   });
+
+  it('clears a stale cached id when the sneaky fetch 404s', async () => {
+    localStorage.setItem(ID_KEY, 'abcDEF12');
+    vi.stubGlobal('fetch', vi.fn().mockResolvedValue({ ok: false, status: 404, json: async () => ({}) }));
+    render(<Harness />);
+    await waitFor(() => expect(screen.getByTestId('s').textContent).toBe('Toi||random||false'));
+    expect(localStorage.getItem(ID_KEY)).toBeNull();
+  });
 });
