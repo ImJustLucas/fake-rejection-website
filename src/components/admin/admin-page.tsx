@@ -1,5 +1,6 @@
 // src/components/admin/admin-page.tsx
 import { useEffect, useState } from 'react';
+import { toast } from 'sonner';
 import { LinkForm } from './link-form';
 import { LinkList, type AdminEntry } from './link-list';
 
@@ -11,7 +12,6 @@ export function AdminPage() {
   });
   const [input, setInput] = useState('');
   const [entries, setEntries] = useState<AdminEntry[]>([]);
-  const [error, setError] = useState('');
 
   const headers = { 'Content-Type': 'application/json', 'x-admin-secret': secret };
 
@@ -36,12 +36,17 @@ export function AdminPage() {
   };
 
   const remove = async (id: string) => {
-    setError('');
     try {
       const r = await fetch('/api/delete', { method: 'POST', headers, body: JSON.stringify({ id }) });
-      if (r.ok) void refresh();
-      else setError('Suppression échouée (mot de passe ?).');
-    } catch { setError('Suppression échouée (réseau).'); }
+      if (r.ok) {
+        void refresh();
+        toast.success('Lien supprimé');
+      } else {
+        toast.error('Suppression échouée (mot de passe ?)');
+      }
+    } catch {
+      toast.error('Suppression échouée (réseau).');
+    }
   };
 
   const enter = () => {
@@ -65,7 +70,6 @@ export function AdminPage() {
   return (
     <div className="w-full max-w-lg mx-auto py-8">
       <LinkForm onCreate={create} />
-      {error && <p className="mt-3 text-center text-red-700">{error}</p>}
       <LinkList entries={entries} onDelete={remove} />
     </div>
   );

@@ -1,4 +1,5 @@
 // src/app.tsx
+import { Toaster } from 'sonner';
 import { AdminPage } from './components/admin/admin-page';
 import { DateExperience } from './date-experience';
 
@@ -8,6 +9,7 @@ export default function App() {
     return (
       <main className="min-h-screen w-full flex items-start justify-center p-4 bg-gradient-to-b from-[#ffd9e8] to-[#ff7eb0]">
         <AdminPage />
+        <Toaster richColors position="top-center" />
       </main>
     );
   }

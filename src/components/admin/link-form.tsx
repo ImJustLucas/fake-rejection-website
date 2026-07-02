@@ -1,6 +1,8 @@
 // src/components/admin/link-form.tsx
 import { useState } from 'react';
+import { toast } from 'sonner';
 import { BEHAVIOR_IDS } from '../../behaviors/ids';
+import { copyToClipboard } from '../../lib/copy-link';
 
 interface Props {
   onCreate: (input: { name: string; phrase: string; mode: string }) => Promise<string | null>;
@@ -16,8 +18,13 @@ export function LinkForm({ onCreate }: Props) {
   const submit = async () => {
     setError('');
     const id = await onCreate({ name: name.trim(), phrase: phrase.trim(), mode });
-    if (!id) return setError('Échec (mot de passe ? champ ?)');
+    if (!id) {
+      setError('Échec (mot de passe ? champ ?)');
+      toast.error('Échec de la génération du lien');
+      return;
+    }
     setLink(`${window.location.origin}/?id=${id}`);
+    toast.success('Lien généré 🎀');
   };
 
   return (
@@ -37,7 +44,7 @@ export function LinkForm({ onCreate }: Props) {
       {link && (
         <div className="mt-3">
           <code className="break-all">{link}</code>
-          <button type="button" className="no-btn ml-2" onClick={() => navigator.clipboard?.writeText(link)}>📋 Copier</button>
+          <button type="button" className="no-btn ml-2" onClick={() => copyToClipboard(link)}>📋 Copier</button>
         </div>
       )}
     </div>

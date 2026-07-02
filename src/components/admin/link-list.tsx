@@ -1,4 +1,6 @@
 // src/components/admin/link-list.tsx
+import { copyToClipboard, linkUrl } from '../../lib/copy-link';
+
 export interface AdminEntry {
   id: string;
   entry: { name: string; phrase: string; mode: string };
@@ -19,7 +21,10 @@ export function LinkList({ entries, onDelete }: Props) {
           <div className="font-bold text-[#2b061e]">{e.entry.name} · <code>/?id={e.id}</code></div>
           <div className="text-sm">{e.entry.phrase || '(phrase par défaut)'} — mode {e.entry.mode}</div>
           <div className="text-sm mt-1">👁 {e.stats.visits} · ✅ {e.stats.accepted} · 💌 {e.stats.noted}</div>
-          <button type="button" className="no-btn mt-2" onClick={() => onDelete(e.id)}>🗑 Supprimer</button>
+          <div className="mt-2 flex gap-2">
+            <button type="button" className="no-btn" onClick={() => copyToClipboard(linkUrl(e.id))}>📋 Copier</button>
+            <button type="button" className="no-btn" onClick={() => onDelete(e.id)}>🗑 Supprimer</button>
+          </div>
         </li>
       ))}
     </ul>
