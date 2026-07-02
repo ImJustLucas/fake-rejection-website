@@ -35,6 +35,7 @@ export function ThankYouCard({ name, onSend }: ThankYouCardProps) {
         style={{ border: '2px solid #2b061e' }}
         aria-label="Petit mot"
         placeholder="Laisse-moi un petit mot (ton insta 👀)"
+        maxLength={500}
         value={note}
         onChange={(e) => setNote(e.target.value)}
       />
