@@ -35,7 +35,7 @@ export async function getEntryAndCountVisit(id: string): Promise<Entry | null> {
 }
 
 async function readStats(id: string): Promise<EntryStats> {
-  const raw = (await redis.hgetall<Record<string, number>>(statsKey(id))) ?? {};
+  const raw = (await redis.hgetall<Record<string, string | number>>(statsKey(id))) ?? {};
   return {
     visits: Number(raw.visits ?? 0),
     accepted: Number(raw.accepted ?? 0),

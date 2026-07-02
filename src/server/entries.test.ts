@@ -62,6 +62,17 @@ describe('entries', () => {
     expect(redis.srem).toHaveBeenCalledWith('entries', 'FIXEDid1');
   });
 
+  it('listEntries skips index ids whose entry is missing', async () => {
+    redis.smembers.mockResolvedValue(['GOODid12', 'GONEid34']);
+    redis.get.mockImplementation(async (key: string) =>
+      key === 'entry:GOODid12' ? { name: 'Lou', phrase: 'p', mode: 'flee', createdAt: 1 } : null,
+    );
+    redis.hgetall.mockResolvedValue({ visits: 1, accepted: 0, noted: 0 });
+    const list = await listEntries();
+    expect(list).toHaveLength(1);
+    expect(list[0].id).toBe('GOODid12');
+  });
+
   it('incrStat increments the given field', async () => {
     await incrStat('FIXEDid1', 'accepted');
     expect(redis.hincrby).toHaveBeenCalledWith('stats:FIXEDid1', 'accepted', 1);
