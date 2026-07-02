@@ -22,8 +22,12 @@ export async function handleTrack(input: {
 
   await sendDiscord(buildMessage(input.event, name, note));
 
-  if (id && input.event === 'accepted') await incrStat(id, 'accepted');
-  if (id && input.event === 'note') await incrStat(id, 'noted');
+  try {
+    if (id && input.event === 'accepted') await incrStat(id, 'accepted');
+    if (id && input.event === 'note') await incrStat(id, 'noted');
+  } catch {
+    /* stats are best-effort — never fail the track response */
+  }
 
   return { ok: true };
 }

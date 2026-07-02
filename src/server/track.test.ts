@@ -41,6 +41,11 @@ describe('track', () => {
     expect(incrStat).toHaveBeenCalledWith('FIXEDid1', 'accepted');
   });
 
+  it('increments noted stat when id + note event', async () => {
+    await handleTrack({ event: 'note', name: 'Lou', id: 'FIXEDid1', note: 'coucou' });
+    expect(incrStat).toHaveBeenCalledWith('FIXEDid1', 'noted');
+  });
+
   it('does not increment when no id', async () => {
     await handleTrack({ event: 'accepted', name: 'Lou' });
     expect(incrStat).not.toHaveBeenCalled();
