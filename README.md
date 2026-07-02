@@ -145,6 +145,46 @@ Fait avec beaucoup de rose et un peu de mauvaise foi. 💕
 
 ---
 
+## 🔗 Liens courts & tableau de bord admin
+
+### Liens `?id=` (recommandés)
+
+Plutôt que d'exposer le prénom dans l'URL (`?name=Camille`), tu peux générer un **lien court** depuis le tableau de bord admin. La phrase personnalisée et le prénom sont stockés côté serveur (Upstash Redis) — le lien ne révèle pas la surprise.
+
+Les anciens liens `?name=` fonctionnent toujours ; `?id=` est simplement plus discret. 🤫
+
+### 🧑‍💻 Page admin (`/?admin`)
+
+1. Ouvre `/?admin` sur ton site déployé.
+2. Entre le mot de passe (`ADMIN_SECRET`).
+3. Renseigne le prénom, la phrase (avec `{prenom}` comme token) et le comportement voulu.
+4. Copie l'URL courte générée et envoie-la à ton match.
+5. Consulte la liste de tes liens avec les stats : **visites / accepté / petit mot**.
+
+### 📡 Webhook Discord côté serveur
+
+Le tracking passe désormais par `/api/track` (fonction Vercel serverless). L'URL du webhook n'est **plus inlinée dans le bundle** — elle vit uniquement dans les variables d'env côté serveur.
+
+### ⚙️ Variables d'environnement serveur
+
+| Variable | Rôle |
+|----------|------|
+| `DISCORD_WEBHOOK_URL` | URL du webhook Discord (serveur uniquement) |
+| `ADMIN_SECRET` | Mot de passe pour accéder à `/?admin` |
+| `UPSTASH_REDIS_REST_URL` | URL REST de ta base Upstash Redis |
+| `UPSTASH_REDIS_REST_TOKEN` | Token d'accès Upstash Redis |
+
+### 💻 Dev local avec les fonctions serverless
+
+```bash
+vercel dev   # lance le site + les fonctions /api localement
+# → http://localhost:3000
+```
+
+> ⚠️ `npm run dev` seul ne sert **pas** les routes `/api` — utilise `vercel dev` pour tester le tracking et l'admin en local.
+
+---
+
 ## ❤️ Le vrai « non », lui, ne se discute pas
 
 Ce projet est une blague sur un bouton. Dans la vraie vie, **le consentement n'est jamais un jeu**. Un « non » est un « non » — complet, définitif, sans bouton qui rétrécit, sans négociation, sans insistance. L'absence de « oui » clair et enthousiaste est aussi un « non ».

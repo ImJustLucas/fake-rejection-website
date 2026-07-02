@@ -1,7 +1,7 @@
 /// <reference types="vite/client" />
 
 interface ImportMetaEnv {
-  readonly VITE_DISCORD_WEBHOOK_URL?: string;
+  // No client-side env vars — webhook is server-side only (see /api/track).
 }
 interface ImportMeta {
   readonly env: ImportMetaEnv;
