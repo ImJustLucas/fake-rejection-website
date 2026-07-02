@@ -10,7 +10,7 @@ describe('renderPhrase', () => {
     expect(renderPhrase('{prenom} & {prenom}', 'Lou')).toBe('Lou & Lou');
   });
   it('returns the default question when the phrase is empty', () => {
-    expect(renderPhrase('', 'Lou')).toBe('Lou, veux-tu venir en date avec moi ?');
+    expect(renderPhrase('', 'Lou')).toBe('Lou, veux-tu venir en date avec moi\u00A0?');
   });
   it('returns the phrase as-is when there is no token', () => {
     expect(renderPhrase('On se voit ?', 'Lou')).toBe('On se voit ?');
