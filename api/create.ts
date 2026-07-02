@@ -1,7 +1,7 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
-import { isAuthorized } from '../src/server/admin';
-import { validateCreateInput } from '../src/server/validate';
-import { createEntry } from '../src/server/entries';
+import { isAuthorized } from '../src/server/admin.js';
+import { validateCreateInput } from '../src/server/validate.js';
+import { createEntry } from '../src/server/entries.js';
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   if (req.method !== 'POST') return res.status(405).json({ error: 'method' });

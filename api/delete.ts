@@ -1,7 +1,7 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
-import { isAuthorized } from '../src/server/admin';
-import { deleteEntry } from '../src/server/entries';
-import { isValidId } from '../src/server/ids';
+import { isAuthorized } from '../src/server/admin.js';
+import { deleteEntry } from '../src/server/entries.js';
+import { isValidId } from '../src/server/ids.js';
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   if (req.method !== 'POST') return res.status(405).json({ error: 'method' });

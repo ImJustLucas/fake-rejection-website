@@ -1,6 +1,6 @@
 // src/server/entries.ts
-import { redis, entryKey, statsKey, INDEX_KEY } from './redis';
-import { generateId } from './ids';
+import { redis, entryKey, statsKey, INDEX_KEY } from './redis.js';
+import { generateId } from './ids.js';
 
 export interface Entry {
   name: string;

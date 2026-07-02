@@ -1,6 +1,6 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
-import { getEntryAndCountVisit } from '../src/server/entries';
-import { isValidId } from '../src/server/ids';
+import { getEntryAndCountVisit } from '../src/server/entries.js';
+import { isValidId } from '../src/server/ids.js';
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   if (req.method !== 'GET') return res.status(405).json({ error: 'method' });

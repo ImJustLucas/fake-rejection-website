@@ -1,5 +1,5 @@
 // src/server/messages.ts
-import { sanitizeName, sanitizeText } from '../lib/sanitize';
+import { sanitizeName, sanitizeText } from '../lib/sanitize.js';
 
 export type TrackEvent = 'visit' | 'return' | 'sneaky' | 'accepted' | 'note';
 

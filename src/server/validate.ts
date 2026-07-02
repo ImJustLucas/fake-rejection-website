@@ -1,5 +1,5 @@
 // src/server/validate.ts
-import { BEHAVIOR_IDS } from '../behaviors/ids';
+import { BEHAVIOR_IDS } from '../behaviors/ids.js';
 
 export const MODES = ['random', ...BEHAVIOR_IDS] as const;
 export type Mode = (typeof MODES)[number];

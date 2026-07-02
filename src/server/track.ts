@@ -1,7 +1,7 @@
 // src/server/track.ts
-import { buildMessage, type TrackEvent } from './messages';
-import { sendDiscord } from './discord-server';
-import { incrStat } from './entries';
+import { buildMessage, type TrackEvent } from './messages.js';
+import { sendDiscord } from './discord-server.js';
+import { incrStat } from './entries.js';
 
 const EVENTS: readonly TrackEvent[] = ['visit', 'return', 'sneaky', 'accepted', 'note'];
 
