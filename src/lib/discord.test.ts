@@ -1,45 +1,28 @@
+// src/lib/discord.test.ts
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
-import { notifyVisit, notifyReturn, notifySneaky, notifyAccepted, notifyNote } from './discord';
+import { notifyVisit, notifyAccepted, notifyNote } from './discord';
 
-describe('discord webhooks', () => {
-  beforeEach(() => {
-    vi.stubEnv('VITE_DISCORD_WEBHOOK_URL', 'https://discord.test/webhook');
-    vi.stubGlobal('fetch', vi.fn().mockResolvedValue({ ok: true }));
-  });
-  afterEach(() => {
-    vi.unstubAllEnvs();
-    vi.unstubAllGlobals();
-    vi.restoreAllMocks();
-  });
+describe('discord client → /api/track', () => {
+  beforeEach(() => vi.stubGlobal('fetch', vi.fn().mockResolvedValue({ ok: true })));
+  afterEach(() => vi.unstubAllGlobals());
 
-  it('posts a visit message with the right content', async () => {
-    await notifyVisit('Camille');
-    expect(fetch).toHaveBeenCalledTimes(1);
-    const [url, init] = (fetch as unknown as ReturnType<typeof vi.fn>).mock.calls[0];
-    expect(url).toBe('https://discord.test/webhook');
+  it('posts a typed visit event to /api/track', async () => {
+    await notifyVisit('Lou', 'abcDEF12');
+    const [url, init] = (fetch as any).mock.calls[0];
+    expect(url).toBe('/api/track');
     expect(init.method).toBe('POST');
     const body = JSON.parse(init.body);
-    expect(body.content).toContain('Camille');
-    expect(body.content).toContain('👀');
-    expect(body.allowed_mentions).toEqual({ parse: [] });
+    expect(body).toMatchObject({ event: 'visit', name: 'Lou', id: 'abcDEF12' });
   });
 
-  it('includes the sanitized note text', async () => {
-    await notifyNote('Camille', '@everyone insta: @lea');
-    const body = JSON.parse((fetch as unknown as ReturnType<typeof vi.fn>).mock.calls[0][1].body);
-    expect(body.content).toContain('💌');
-    expect(body.content).not.toContain('@everyone'); // @ neutralized
+  it('posts note with the note text', async () => {
+    await notifyNote('Lou', 'insta: @x', 'abcDEF12');
+    const body = JSON.parse((fetch as any).mock.calls[0][1].body);
+    expect(body).toMatchObject({ event: 'note', name: 'Lou', note: 'insta: @x', id: 'abcDEF12' });
   });
 
-  it('does not throw when the network fails', async () => {
+  it('never throws on network failure', async () => {
     vi.stubGlobal('fetch', vi.fn().mockRejectedValue(new Error('offline')));
-    await expect(notifyAccepted('Camille')).resolves.toBeUndefined();
-  });
-
-  it('skips the request entirely when the webhook URL is unset', async () => {
-    vi.stubEnv('VITE_DISCORD_WEBHOOK_URL', '');
-    await notifyReturn('Camille');
-    await notifySneaky('Camille');
-    expect(fetch).not.toHaveBeenCalled();
+    await expect(notifyAccepted('Lou')).resolves.toBeUndefined();
   });
 });
