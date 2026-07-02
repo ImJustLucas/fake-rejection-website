@@ -1,5 +1,5 @@
 // src/app.tsx
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { useTarget } from './hooks/use-target';
 import { useVisitTracking } from './hooks/use-visit-tracking';
 import { QuestionCard } from './components/question-card';
@@ -20,10 +20,10 @@ export default function App() {
   const sneaky = ready ? target.sneaky : false;
   const rawMode = ready ? target.mode : 'random';
   const phrase = ready ? target.phrase : '';
-  const isTouch =
-    typeof window.matchMedia === 'function'
-      ? window.matchMedia('(hover: none) and (pointer: coarse)').matches
-      : false;
+  const isTouch = useMemo(
+    () => (typeof window.matchMedia === 'function' ? window.matchMedia('(hover: none) and (pointer: coarse)').matches : false),
+    [],
+  );
 
   useVisitTracking(name, sneaky, id, ready);
 
@@ -37,7 +37,7 @@ export default function App() {
     firePinkConfetti();
   };
 
-  const mode = resolveMode(rawMode, () => randomBehaviorId());
+  const mode = useMemo(() => resolveMode(rawMode, () => randomBehaviorId()), [rawMode]);
 
   return (
     <main className="min-h-screen w-full flex items-center justify-center p-4 bg-gradient-to-b from-[#ffd9e8] to-[#ff7eb0]">

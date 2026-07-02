@@ -18,6 +18,8 @@ function parseReturns(raw: string | null): number[] {
   }
 }
 
+/** Fires the arrival webhooks exactly once when `ready` becomes true,
+ *  using the name/sneaky/id values current at that moment. */
 export function useVisitTracking(name: string, sneaky: boolean, id?: string, ready = true): void {
   const fired = useRef(false);
   const args = useRef({ name, sneaky, id });
