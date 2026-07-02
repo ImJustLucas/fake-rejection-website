@@ -25,7 +25,8 @@ export function useEntry(id: string | null): EntryState {
         if (cancelled) return;
         if (r.status === 404) return setState({ status: 'notfound' });
         if (!r.ok) return setState({ status: 'error' });
-        setState({ status: 'ok', data: (await r.json()) as RemoteEntry });
+        const data = (await r.json()) as RemoteEntry;
+        if (!cancelled) setState({ status: 'ok', data });
       })
       .catch(() => {
         if (!cancelled) setState({ status: 'error' });
