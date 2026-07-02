@@ -45,12 +45,14 @@ async function readStats(id: string): Promise<EntryStats> {
 
 export async function listEntries(): Promise<EntryWithStats[]> {
   const ids = await redis.smembers(INDEX_KEY);
-  const out: EntryWithStats[] = [];
-  for (const id of ids) {
-    const entry = await redis.get<Entry>(entryKey(id));
-    if (entry) out.push({ id, entry, stats: await readStats(id) });
-  }
-  return out;
+  const results = await Promise.all(
+    ids.map(async (id): Promise<EntryWithStats | null> => {
+      const entry = await redis.get<Entry>(entryKey(id));
+      if (!entry) return null;
+      return { id, entry, stats: await readStats(id) };
+    }),
+  );
+  return results.filter((r): r is EntryWithStats => r !== null);
 }
 
 export async function deleteEntry(id: string): Promise<void> {
