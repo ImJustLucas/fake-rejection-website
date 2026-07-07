@@ -6,7 +6,7 @@ interface ThankYouCardProps {
   onSend: (note: string) => void;
 }
 
-export function ThankYouCard({ name, onSend }: ThankYouCardProps) {
+export function ThankYouCard({ onSend }: ThankYouCardProps) {
   const [note, setNote] = useState("");
   const [sent, setSent] = useState(false);
 
